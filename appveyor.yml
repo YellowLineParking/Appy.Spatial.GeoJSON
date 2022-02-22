@@ -1,0 +1,9 @@
+﻿version: 1.0.{build}
+skip_tags: true
+image:
+  - Visual Studio 2022
+install:
+  - pwsh: dotnet nuget list source
+build_script:
+  - pwsh: '& ./build.ps1 ci'
+test: off

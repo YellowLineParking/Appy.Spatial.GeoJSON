@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appy.Spatial.GeoJSON", "Appy.Spatial.GeoJSON\Appy.Spatial.GeoJSON.csproj", "{50962C2D-ADFE-423C-9DD6-3F0B8FF29D5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appy.Spatial.GeoJSON.Newtonsoft", "Appy.Spatial.GeoJSON.Newtonsoft\Appy.Spatial.GeoJSON.Newtonsoft.csproj", "{0256875D-1997-4B81-8E33-243B40F68B2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appy.Spatial.GeoJSON.TextJson", "Appy.Spatial.GeoJSON.TextJson\Appy.Spatial.GeoJSON.TextJson.csproj", "{CDFFB90F-9DE9-4EE6-B088-ABDCE0AFCE26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D7D58114-E0A9-4F2F-96AE-598A4B359A7A}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		build.ps1 = build.ps1
+		config.yml = config.yml
+		functions.ps1 = functions.ps1
+		tasks.ps1 = tasks.ps1
+		version.props = version.props
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Project", "1. Project", "{09A46B69-0EEB-4CF7-8857-BFC27F600C45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Extensions", "2. Extensions", "{12D32EB2-3BA6-4ECC-801A-C379BBE2C34F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99. Tests", "99. Tests", "{F376B16D-2CBD-4D07-858E-7791A9FBAD4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appy.Spatial.GeoJSON.Tests", "Appy.Spatial.GeoJSON.Tests\Appy.Spatial.GeoJSON.Tests.csproj", "{886A1237-45D1-4580-9B8F-0531B5CC297B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50962C2D-ADFE-423C-9DD6-3F0B8FF29D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50962C2D-ADFE-423C-9DD6-3F0B8FF29D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50962C2D-ADFE-423C-9DD6-3F0B8FF29D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50962C2D-ADFE-423C-9DD6-3F0B8FF29D5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0256875D-1997-4B81-8E33-243B40F68B2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0256875D-1997-4B81-8E33-243B40F68B2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0256875D-1997-4B81-8E33-243B40F68B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0256875D-1997-4B81-8E33-243B40F68B2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDFFB90F-9DE9-4EE6-B088-ABDCE0AFCE26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDFFB90F-9DE9-4EE6-B088-ABDCE0AFCE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDFFB90F-9DE9-4EE6-B088-ABDCE0AFCE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDFFB90F-9DE9-4EE6-B088-ABDCE0AFCE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{886A1237-45D1-4580-9B8F-0531B5CC297B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{886A1237-45D1-4580-9B8F-0531B5CC297B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{886A1237-45D1-4580-9B8F-0531B5CC297B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{886A1237-45D1-4580-9B8F-0531B5CC297B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50962C2D-ADFE-423C-9DD6-3F0B8FF29D5F} = {09A46B69-0EEB-4CF7-8857-BFC27F600C45}
+		{0256875D-1997-4B81-8E33-243B40F68B2B} = {12D32EB2-3BA6-4ECC-801A-C379BBE2C34F}
+		{CDFFB90F-9DE9-4EE6-B088-ABDCE0AFCE26} = {12D32EB2-3BA6-4ECC-801A-C379BBE2C34F}
+		{886A1237-45D1-4580-9B8F-0531B5CC297B} = {F376B16D-2CBD-4D07-858E-7791A9FBAD4D}
+	EndGlobalSection
+EndGlobal

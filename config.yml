@@ -1,0 +1,6 @@
+﻿Appy.Spatial.GeoJSON:
+    Type: Package
+Appy.Spatial.GeoJSON.Newtonsoft:
+    Type: Package
+Appy.Spatial.GeoJSON.TextJson:
+    Type: Package

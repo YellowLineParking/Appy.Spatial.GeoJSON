@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <Version>1.1.1</Version>
+    <Copyright>Copyright (c) AppyWay</Copyright>
+    <Authors>AppyWay</Authors>
+    <Company>AppyWay</Company>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>AppyWay;GeoJson;Newtonsoft;System.Text.Json</PackageTags>
+    <RepositoryUrl>https://github.com/YellowLineParking/Appy.Spatial.GeoJSON</RepositoryUrl>
+  </PropertyGroup>
+</Project> 
