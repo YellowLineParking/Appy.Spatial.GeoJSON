@@ -20,20 +20,20 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
 
             switch (obj.GetValue("type", StringComparison.OrdinalIgnoreCase)?.Value<string>())
             {
-                case "Polygon": return geometryAs<Polygon>(obj);
-                case "LineString": return geometryAs<LineString>(obj);
-                case "MultiLineString": return geometryAs<MultiLineString>(obj);
-                case "MultiPolygon": return geometryAs<MultiPolygon>(obj);
-                case "Point": return geometryAs<Point>(obj);
-                case "GeometryCollection": return geometryAs<GeometryCollection>(obj);
+                case "Polygon": return geometryAs<Polygon>(obj, serializer);
+                case "LineString": return geometryAs<LineString>(obj, serializer);
+                case "MultiLineString": return geometryAs<MultiLineString>(obj, serializer);
+                case "MultiPolygon": return geometryAs<MultiPolygon>(obj, serializer);
+                case "Point": return geometryAs<Point>(obj, serializer);
+                case "GeometryCollection": return geometryAs<GeometryCollection>(obj, serializer);
                 default: throw new ArgumentException("Unsupported geometry type: " + obj["type"].Value<string>(), nameof(objectType));
             }
         }
 
-        static T geometryAs<T>(JObject input) where T : new()
+        static T geometryAs<T>(JObject input, JsonSerializer serializer) where T : new()
         {
             var result = new T();
-            JsonConvert.PopulateObject(input.ToString(), result, new JsonSerializerSettings{ Converters = new List<JsonConverter> { new GeometryConverter()} });
+            JsonConvert.PopulateObject(input.ToString(), result, new JsonSerializerSettings{ Converters = serializer.Converters });
             return result;
         }
 
