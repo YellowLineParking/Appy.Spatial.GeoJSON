@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -35,14 +34,10 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
             }
         }
 
-        static Feature<T> featureOf<T>(JObject input, JsonSerializer serializer) where T : Geometry
-        {
-            var result = new Feature<T>();
-            JsonConvert.PopulateObject(input.ToString(), result, new JsonSerializerSettings { Converters = serializer.Converters });
-            return result;
-        }
+        static Feature<T> featureOf<T>(JObject input, JsonSerializer serializer) where T : Geometry => 
+            serializer.PopulateObject(input.ToString(), new Feature<T>());
 
         public override bool CanConvert(Type objectType) => typeof(Feature).IsAssignableFrom(objectType) &&
-            objectType.GenericTypeArguments.Length == 0;
+                                                            objectType.GenericTypeArguments.Length == 0;
     }
 }
