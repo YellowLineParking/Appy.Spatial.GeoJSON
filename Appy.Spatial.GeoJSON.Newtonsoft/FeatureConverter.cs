@@ -11,30 +11,34 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotImplementedException();
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            
             if (!CanConvert(objectType)) throw new ArgumentException("Unsupported target type: " + objectType, nameof(objectType));
 
             var token = JToken.Load(reader);
 
-            if (!(token is JObject obj)) return null;
-            if (!obj.GetValue("geometry", StringComparison.OrdinalIgnoreCase).HasValues) return featureOf<Geometry>(obj);
-            switch (((obj.GetValue("geometry", StringComparison.OrdinalIgnoreCase) as JObject)?.GetValue("type",
-                        StringComparison.OrdinalIgnoreCase) ?? null)?.Value<string>())
+            if (!(token is JObject obj)) 
+                return null;
+
+            var geometryToken = obj.GetValue("geometry", StringComparison.OrdinalIgnoreCase);
+
+            if (!geometryToken.HasValues) 
+                return featureOf<Geometry>(obj, serializer);
+            
+            switch ((geometryToken as JObject)?.GetValue("type", StringComparison.OrdinalIgnoreCase)?.Value<string>())
             {
-                case "Polygon": return featureOf<Polygon>(obj);
-                case "LineString": return featureOf<LineString>(obj);
-                case "MultiLineString": return featureOf<MultiLineString>(obj);
-                case "MultiPolygon": return featureOf<MultiPolygon>(obj);
-                case "GeometryCollection": return featureOf<GeometryCollection>(obj);
-                case "Point": return featureOf<Point>(obj);
-                default: throw new ArgumentException("Unsupported geometry type: " + obj["type"].Value<string>(), nameof(objectType));
+                case "Polygon": return featureOf<Polygon>(obj, serializer);
+                case "LineString": return featureOf<LineString>(obj, serializer);
+                case "MultiLineString": return featureOf<MultiLineString>(obj, serializer);
+                case "MultiPolygon": return featureOf<MultiPolygon>(obj, serializer);
+                case "GeometryCollection": return featureOf<GeometryCollection>(obj, serializer);
+                case "Point": return featureOf<Point>(obj, serializer);
+                default: throw new ArgumentException($"Unsupported geometry type: {obj["type"].Value<string>()}", nameof(objectType));
             }
         }
 
-        static Feature<T> featureOf<T>(JObject input) where T : Geometry
+        static Feature<T> featureOf<T>(JObject input, JsonSerializer serializer) where T : Geometry
         {
             var result = new Feature<T>();
-            JsonConvert.PopulateObject(input.ToString(), result, new JsonSerializerSettings { Converters = new List<JsonConverter> { new FeatureConverter(), new GeometryConverter()}});
+            JsonConvert.PopulateObject(input.ToString(), result, new JsonSerializerSettings { Converters = serializer.Converters });
             return result;
         }
 
