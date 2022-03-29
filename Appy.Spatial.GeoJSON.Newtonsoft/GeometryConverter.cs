@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Appy.Spatial.GeoJSON.Newtonsoft
 {
-
     public class GeometryConverter : JsonConverter
     {
         public override bool CanWrite => false;
@@ -30,12 +28,8 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
             }
         }
 
-        static T geometryAs<T>(JObject input, JsonSerializer serializer) where T : new()
-        {
-            var result = new T();
-            JsonConvert.PopulateObject(input.ToString(), result, new JsonSerializerSettings{ Converters = serializer.Converters });
-            return result;
-        }
+        static T geometryAs<T>(JObject input, JsonSerializer serializer) where T : new() =>
+            serializer.PopulateObject(input.ToString(), new T());
 
         public override bool CanConvert(Type objectType) => typeof(Geometry).IsAssignableFrom(objectType);
     }
