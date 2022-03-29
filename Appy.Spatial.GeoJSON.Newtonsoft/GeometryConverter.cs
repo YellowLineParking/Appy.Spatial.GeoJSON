@@ -28,8 +28,13 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
             }
         }
 
-        static T geometryAs<T>(JObject input, JsonSerializer serializer) where T : new() =>
-            serializer.PopulateObject(input.ToString(), new T());
+        static T geometryAs<T>(JObject input, JsonSerializer serializer) where T : new()
+        {
+            using (var jsonReader = input.CreateReader())
+            {
+                return serializer.PopulateObject(jsonReader, new T());
+            }
+        }
 
         public override bool CanConvert(Type objectType) => typeof(Geometry).IsAssignableFrom(objectType);
     }

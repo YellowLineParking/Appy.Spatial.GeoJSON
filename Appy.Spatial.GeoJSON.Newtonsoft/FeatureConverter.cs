@@ -34,8 +34,13 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
             }
         }
 
-        static Feature<T> featureOf<T>(JObject input, JsonSerializer serializer) where T : Geometry => 
-            serializer.PopulateObject(input.ToString(), new Feature<T>());
+        static Feature<T> featureOf<T>(JObject input, JsonSerializer serializer) where T : Geometry 
+        {
+            using (var jsonReader = input.CreateReader())
+            {
+                return serializer.PopulateObject(jsonReader, new Feature<T>());
+            }
+        }
 
         public override bool CanConvert(Type objectType) => typeof(Feature).IsAssignableFrom(objectType) &&
                                                             objectType.GenericTypeArguments.Length == 0;
