@@ -38,14 +38,14 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
                 _ => throw new JsonException($"Unsupported geometry type: {geometryType}")
             };
         }
+        
+        public override bool CanConvert(Type objectType) => 
+            typeof(Feature) == objectType && objectType.GenericTypeArguments.Length == 0;
 
         static Feature<T> FeatureOf<T>(JToken input, JsonSerializer serializer) where T : Geometry
         {
             using var jsonReader = input.CreateReader();
             return serializer.PopulateObject(jsonReader, new Feature<T>());
         }
-
-        public override bool CanConvert(Type objectType) => 
-            typeof(Feature).IsAssignableFrom(objectType) && objectType.GenericTypeArguments.Length == 0;
     }
 }
