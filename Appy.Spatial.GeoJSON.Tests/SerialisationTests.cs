@@ -64,16 +64,22 @@ public class SerialisationTests
 
     void RoundTripTestCasesFor<T>(T geometry) where T : Geometry
     {
+        var props = new Props { Id = "test" };
+        
         ShouldSerializeAndDeserialize(geometry, NewtonsoftSerialize, NewtonsoftDeserialise<Geometry>);
-        ShouldSerializeAndDeserialize(new Feature<T> {Geometry = geometry}, NewtonsoftSerialize, NewtonsoftDeserialise<Feature>);
-        ShouldSerializeAndDeserialize(new Feature<T, Props> {Geometry = geometry, Properties = new Props{ Id = "test"}}, NewtonsoftSerialize, NewtonsoftDeserialise<Feature<T, Props>>);
-        ShouldSerializeAndDeserialize(new Feature<T, Props> {Geometry = geometry, Properties = new Props{ Id = "test"}}, NewtonsoftSerialize, NewtonsoftDeserialise<Feature<T, Props>>);
+        ShouldSerializeAndDeserialize(new Feature<T> { Geometry = geometry }, NewtonsoftSerialize, NewtonsoftDeserialise<Feature>);
+        ShouldSerializeAndDeserialize(new Feature<T, Props> { Geometry = geometry, Properties = props }, NewtonsoftSerialize, NewtonsoftDeserialise<Feature<T, Props>>);
+        ShouldSerializeAndDeserialize(new Feature<T, Props> { Geometry = geometry, Properties = props }, NewtonsoftSerialize, NewtonsoftDeserialise<Feature<T, Props>>);
         ShouldSerializeAndDeserialize(new NestedObject<T>(geometry), NewtonsoftSerialize, NewtonsoftDeserialise<NestedObject<T>>);
+        ShouldSerializeAndDeserialize(new InheritanceWithoutArguments { Geometry = geometry }, NewtonsoftSerialize, NewtonsoftDeserialise<InheritanceWithoutArguments>);
+        ShouldSerializeAndDeserialize(new InheritanceWithoutArgumentsAndProps { Geometry = geometry, Properties = props }, NewtonsoftSerialize, NewtonsoftDeserialise<InheritanceWithoutArgumentsAndProps>);
         
         ShouldSerializeAndDeserialize(geometry, SystemTextSerialize, SystemTextDeserialize<Geometry>);
         ShouldSerializeAndDeserialize(new Feature<T> {Geometry = geometry}, SystemTextSerialize, SystemTextDeserialize<Feature>);
-        ShouldSerializeAndDeserialize(new Feature<T, Props> {Geometry = geometry, Properties = new Props{ Id = "test"}}, SystemTextSerialize, SystemTextDeserialize<Feature<T, Props>>);
+        ShouldSerializeAndDeserialize(new Feature<T, Props> {Geometry = geometry, Properties = props }, SystemTextSerialize, SystemTextDeserialize<Feature<T, Props>>);
         ShouldSerializeAndDeserialize(new NestedObject<T>(geometry), SystemTextSerialize, SystemTextDeserialize<NestedObject<T>>);
+        ShouldSerializeAndDeserialize(new InheritanceWithoutArguments { Geometry = geometry }, SystemTextSerialize, SystemTextDeserialize<InheritanceWithoutArguments>);
+        ShouldSerializeAndDeserialize(new InheritanceWithoutArgumentsAndProps { Geometry = geometry, Properties = props }, SystemTextSerialize, SystemTextDeserialize<InheritanceWithoutArgumentsAndProps>);
     }
 
     static void ShouldSerializeAndDeserialize<TInput, TOutput>(TInput input, Func<object, string> serializer, Func<string, TOutput> deserializer)
@@ -114,6 +120,13 @@ public class SerialisationTests
         public Feature<T> Feature { get; set; }
         public Feature<T, Props> FeatureWithProps { get; set; }
         public T Geometry { get; set; }
+    }
+
+    public class InheritanceWithoutArguments : Feature<Geometry>
+    {
+    }
     
+    public class InheritanceWithoutArgumentsAndProps : Feature<Geometry, Props>
+    {
     }
 }
