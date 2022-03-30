@@ -13,7 +13,7 @@ public class Serialisation
     readonly JsonSerializerSettings _settings;
     public Serialisation()
     {
-        _options = new JsonSerializerOptions { Converters = {new TextJson.FeatureConverter(), new TextJson.GeometryConverter()}};
+        _options = new JsonSerializerOptions { Converters = { new TextJson.FeatureConverter(), new TextJson.GeometryConverter()}};
         _settings = new JsonSerializerSettings{ Converters = { new Newtonsoft.FeatureConverter(), new Newtonsoft.GeometryConverter()}};
     }
     [Fact]
@@ -64,19 +64,19 @@ public class Serialisation
         var textJsonOptions = new JsonSerializerOptions { Converters = {new TextJson.FeatureConverter(), new TextJson.GeometryConverter()}};
         var newtonsoftOptions = new JsonSerializerSettings{ Converters = { new Newtonsoft.FeatureConverter(), new Newtonsoft.GeometryConverter()}};
         // Test geometry
-        test(geometry, nsSerialize, nsDeserialise<Geometry>);
-        test(new Feature<T> {Geometry = geometry}, nsSerialize, nsDeserialise<Feature>);
-        test(new Feature<T, Props> {Geometry = geometry, Properties = new Props{ Id = "test"}}, nsSerialize, nsDeserialise<Feature<T, Props>>);
-        test(new Feature<T, Props> {Geometry = geometry, Properties = new Props{ Id = "test"}}, nsSerialize, nsDeserialise<Feature<T, Props>>);
-        test(new NestedObject<T>(geometry), nsSerialize, nsDeserialise<NestedObject<T>>);
+        Test(geometry, NewtonsoftSerialize, NewtonsoftDeserialise<Geometry>);
+        Test(new Feature<T> {Geometry = geometry}, NewtonsoftSerialize, NewtonsoftDeserialise<Feature>);
+        Test(new Feature<T, Props> {Geometry = geometry, Properties = new Props{ Id = "test"}}, NewtonsoftSerialize, NewtonsoftDeserialise<Feature<T, Props>>);
+        Test(new Feature<T, Props> {Geometry = geometry, Properties = new Props{ Id = "test"}}, NewtonsoftSerialize, NewtonsoftDeserialise<Feature<T, Props>>);
+        Test(new NestedObject<T>(geometry), NewtonsoftSerialize, NewtonsoftDeserialise<NestedObject<T>>);
         
-        test(geometry, textSerialize, textDeserialise<Geometry>);
-        test(new Feature<T> {Geometry = geometry}, textSerialize, textDeserialise<Feature>);
-        test(new Feature<T, Props> {Geometry = geometry, Properties = new Props{ Id = "test"}}, textSerialize, textDeserialise<Feature<T, Props>>);
-        test(new NestedObject<T>(geometry), textSerialize, textDeserialise<NestedObject<T>>);
+        Test(geometry, SystemTextSerialize, SystemTextDeserialise<Geometry>);
+        Test(new Feature<T> {Geometry = geometry}, SystemTextSerialize, SystemTextDeserialise<Feature>);
+        Test(new Feature<T, Props> {Geometry = geometry, Properties = new Props{ Id = "test"}}, SystemTextSerialize, SystemTextDeserialise<Feature<T, Props>>);
+        Test(new NestedObject<T>(geometry), SystemTextSerialize, SystemTextDeserialise<NestedObject<T>>);
     }
 
-    void test<TInput, TOutput>(TInput input, Func<object, string> serialiser, Func<string, TOutput> deserialiser)
+    void Test<TInput, TOutput>(TInput input, Func<object, string> serialiser, Func<string, TOutput> deserialiser)
     {
         var serialised = serialiser(input);
         var deserialised = deserialiser(serialised);
@@ -84,11 +84,11 @@ public class Serialisation
         deserialised.Should().BeEquivalentTo(input);
     }
     
-    string nsSerialize(object obj) => JsonConvert.SerializeObject(obj, _settings);
-    T nsDeserialise<T>(string value) => JsonConvert.DeserializeObject<T>(value, _settings);
+    string NewtonsoftSerialize(object obj) => JsonConvert.SerializeObject(obj, _settings);
+    T NewtonsoftDeserialise<T>(string value) => JsonConvert.DeserializeObject<T>(value, _settings);
     
-    string textSerialize(object obj) => System.Text.Json.JsonSerializer.Serialize(obj, _options);
-    T textDeserialise<T>(string value) => System.Text.Json.JsonSerializer.Deserialize<T>(value, _options);
+    string SystemTextSerialize(object obj) => System.Text.Json.JsonSerializer.Serialize(obj, _options);
+    T SystemTextDeserialise<T>(string value) => System.Text.Json.JsonSerializer.Deserialize<T>(value, _options);
     
     public class Props
     {

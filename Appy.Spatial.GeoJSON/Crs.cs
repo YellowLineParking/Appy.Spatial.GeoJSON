@@ -4,7 +4,8 @@
     {
         public string Type { get; set; }
         public CrsProperties Properties { get; set; }
-        public static readonly Crs Wgs84 = new Crs
+        
+        public static readonly Crs Wgs84 = new()
         {
             Type = "name",
             Properties = new CrsProperties
@@ -13,7 +14,7 @@
             }
         };
 
-        public static readonly Crs Osgb36 = new Crs
+        public static readonly Crs Osgb36 = new()
         {
             Type = "name",
             Properties = new CrsProperties
@@ -22,7 +23,7 @@
             }
         };
 
-        public static readonly Crs Etrs89 = new Crs
+        public static readonly Crs Etrs89 = new()
         {
             Type = "name",
             Properties = new CrsProperties
@@ -31,7 +32,7 @@
             }
         };
 
-        public static readonly Crs Epsg3857 = new Crs
+        public static readonly Crs Epsg3857 = new()
         {
             Type = "name",
             Properties = new CrsProperties

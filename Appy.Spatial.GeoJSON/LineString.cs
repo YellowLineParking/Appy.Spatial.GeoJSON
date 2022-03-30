@@ -2,7 +2,14 @@
 {
     public class LineString : Geometry<IList<IList<double>>>
     {
-        public LineString() : base(GeoType.LineString){ }
-        public LineString(IList<IList<double>> coordinates) : base(GeoType.LineString, coordinates) { }
+        public LineString() 
+            : base(GeoType.LineString)
+        {
+        }
+
+        public LineString(IList<IList<double>> coordinates) 
+            : base(GeoType.LineString, coordinates)
+        {
+        }
     }
 }

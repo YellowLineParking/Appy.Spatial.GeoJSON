@@ -7,35 +7,38 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
     public class GeometryConverter : JsonConverter
     {
         public override bool CanWrite => false;
+        
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotImplementedException();
+        
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (!CanConvert(objectType)) throw new ArgumentException("Unsupported target type: " + objectType, nameof(objectType));
+            if (!CanConvert(objectType)) 
+                throw new JsonException($"Unsupported target type {objectType}");
 
             var token = JToken.Load(reader);
 
-            if (!(token is JObject obj)) return null;
+            if (token is not JObject obj) 
+                return null;
 
-            switch (obj.GetValue("type", StringComparison.OrdinalIgnoreCase)?.Value<string>())
+            return obj.GetValue("type", StringComparison.OrdinalIgnoreCase)?.Value<string>() switch
             {
-                case "Polygon": return geometryAs<Polygon>(obj, serializer);
-                case "LineString": return geometryAs<LineString>(obj, serializer);
-                case "MultiLineString": return geometryAs<MultiLineString>(obj, serializer);
-                case "MultiPolygon": return geometryAs<MultiPolygon>(obj, serializer);
-                case "Point": return geometryAs<Point>(obj, serializer);
-                case "GeometryCollection": return geometryAs<GeometryCollection>(obj, serializer);
-                default: throw new ArgumentException("Unsupported geometry type: " + obj["type"].Value<string>(), nameof(objectType));
-            }
+                "Polygon" => GeometryAs<Polygon>(obj, serializer),
+                "LineString" => GeometryAs<LineString>(obj, serializer),
+                "MultiLineString" => GeometryAs<MultiLineString>(obj, serializer),
+                "MultiPolygon" => GeometryAs<MultiPolygon>(obj, serializer),
+                "Point" => GeometryAs<Point>(obj, serializer),
+                "GeometryCollection" => GeometryAs<GeometryCollection>(obj, serializer),
+                _ => throw new JsonException($"Unsupported geometry type {obj["type"].Value<string>()}")
+            };
         }
 
-        static T geometryAs<T>(JObject input, JsonSerializer serializer) where T : new()
+        static T GeometryAs<T>(JToken input, JsonSerializer serializer) where T : new()
         {
-            using (var jsonReader = input.CreateReader())
-            {
-                return serializer.PopulateObject(jsonReader, new T());
-            }
+            using var jsonReader = input.CreateReader();
+            return serializer.PopulateObject(jsonReader, new T());
         }
 
-        public override bool CanConvert(Type objectType) => typeof(Geometry).IsAssignableFrom(objectType);
+        public override bool CanConvert(Type objectType) => 
+            typeof(Geometry).IsAssignableFrom(objectType);
     }
 }
