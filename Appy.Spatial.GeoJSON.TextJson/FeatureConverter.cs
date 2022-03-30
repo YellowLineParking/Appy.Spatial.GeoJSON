@@ -4,7 +4,6 @@ using System.Text.Json.Serialization;
 
 namespace Appy.Spatial.GeoJSON.TextJson
 {
-
     public class FeatureConverter : JsonConverter<Feature>
     {
         public override bool CanConvert(Type typeToConvert) =>
@@ -14,35 +13,44 @@ namespace Appy.Spatial.GeoJSON.TextJson
         {
             var readerClone = reader;
 
-            if (readerClone.TokenType != JsonTokenType.StartObject) throw new JsonException();
+            if (readerClone.TokenType != JsonTokenType.StartObject) 
+                throw new JsonException("TokenType is not StartObject");
 
             var propertyName = string.Empty;
             var initialDepth = readerClone.CurrentDepth + 2;
+            
             while (propertyName.ToLower() != "type")
             {
                 readerClone.Read();
-                if (readerClone.CurrentDepth != initialDepth) continue;
                 
-                if (readerClone.TokenType != JsonTokenType.PropertyName) continue;
+                if (readerClone.CurrentDepth != initialDepth) 
+                    continue;
+                
+                if (readerClone.TokenType != JsonTokenType.PropertyName) 
+                    continue;
 
                 propertyName = readerClone.GetString();
             }
 
             readerClone.Read();
-            var geoType = readerClone.GetString();
+            
+            var geometryType = readerClone.GetString();
 
-            switch (geoType)
+            return geometryType switch
             {
-                case GeoType.GeometryCollection: return JsonSerializer.Deserialize<Feature<GeometryCollection>>(ref reader, options);
-                case GeoType.Polygon: return JsonSerializer.Deserialize<Feature<Polygon>>(ref reader, options);
-                case GeoType.LineString: return JsonSerializer.Deserialize<Feature<LineString>>(ref reader, options);
-                case GeoType.MultiLineString: return JsonSerializer.Deserialize<Feature<MultiLineString>>(ref reader, options);
-                case GeoType.MultiPolygon: return JsonSerializer.Deserialize<Feature<MultiPolygon>>(ref reader, options);
-                case GeoType.Point: return JsonSerializer.Deserialize<Feature<Point>>(ref reader, options);
-                default: throw new ArgumentException("Unsupported geometry type: " + geoType);
-            }
+                GeoType.GeometryCollection => FeatureOf<GeometryCollection>(ref reader, options),
+                GeoType.Polygon => FeatureOf<Polygon>(ref reader, options),
+                GeoType.LineString => FeatureOf<LineString>(ref reader, options),
+                GeoType.MultiLineString => FeatureOf<MultiLineString>(ref reader, options),
+                GeoType.MultiPolygon => FeatureOf<MultiPolygon>(ref reader, options),
+                GeoType.Point => FeatureOf<Point>(ref reader, options),
+                _ => throw new JsonException($"Unsupported geometry type: {geometryType}")
+            };
         }
 
+        static Feature<T> FeatureOf<T>(ref Utf8JsonReader reader, JsonSerializerOptions options) where T : Geometry =>
+            JsonSerializer.Deserialize<Feature<T>>(ref reader, options);
+            
         public override void Write(Utf8JsonWriter writer, Feature feature, JsonSerializerOptions options) =>
             JsonSerializer.Serialize(writer, feature, feature.GetType(), options);
     }

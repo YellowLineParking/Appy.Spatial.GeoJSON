@@ -8,7 +8,6 @@ namespace Appy.Spatial.GeoJSON.TextJson
         {
             options.Converters.Add(new FeatureConverter());
             options.Converters.Add(new GeometryConverter());
-            // options.Converters.Add(new FeaturePropertiesConverter());
             return options;
         }
     }

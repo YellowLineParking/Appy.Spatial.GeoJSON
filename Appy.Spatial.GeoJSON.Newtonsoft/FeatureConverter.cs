@@ -13,7 +13,7 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             if (!CanConvert(objectType)) 
-                throw new ArgumentException("Unsupported target type: " + objectType, nameof(objectType));
+                throw new JsonException($"Unsupported target type: {objectType}");
 
             var token = JToken.Load(reader);
 
@@ -29,13 +29,13 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
 
             return geometryType switch
             {
-                "Polygon" => FeatureOf<Polygon>(obj, serializer),
-                "LineString" => FeatureOf<LineString>(obj, serializer),
-                "MultiLineString" => FeatureOf<MultiLineString>(obj, serializer),
-                "MultiPolygon" => FeatureOf<MultiPolygon>(obj, serializer),
-                "GeometryCollection" => FeatureOf<GeometryCollection>(obj, serializer),
-                "Point" => FeatureOf<Point>(obj, serializer),
-                _ => throw new ArgumentException($"Unsupported geometry type: {obj["type"].Value<string>()}", nameof(objectType))
+                GeoType.GeometryCollection => FeatureOf<GeometryCollection>(obj, serializer),
+                GeoType.Polygon => FeatureOf<Polygon>(obj, serializer),
+                GeoType.LineString => FeatureOf<LineString>(obj, serializer),
+                GeoType.MultiLineString => FeatureOf<MultiLineString>(obj, serializer),
+                GeoType.MultiPolygon => FeatureOf<MultiPolygon>(obj, serializer),
+                GeoType.Point => FeatureOf<Point>(obj, serializer),
+                _ => throw new JsonException($"Unsupported geometry type: {geometryType}")
             };
         }
 

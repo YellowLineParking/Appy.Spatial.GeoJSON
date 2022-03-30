@@ -20,25 +20,27 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
             if (token is not JObject obj) 
                 return null;
 
-            return obj.GetValue("type", StringComparison.OrdinalIgnoreCase)?.Value<string>() switch
+            var geometryType = obj.GetValue("type", StringComparison.OrdinalIgnoreCase)?.Value<string>();
+                
+            return geometryType switch
             {
-                "Polygon" => GeometryAs<Polygon>(obj, serializer),
-                "LineString" => GeometryAs<LineString>(obj, serializer),
-                "MultiLineString" => GeometryAs<MultiLineString>(obj, serializer),
-                "MultiPolygon" => GeometryAs<MultiPolygon>(obj, serializer),
-                "Point" => GeometryAs<Point>(obj, serializer),
-                "GeometryCollection" => GeometryAs<GeometryCollection>(obj, serializer),
-                _ => throw new JsonException($"Unsupported geometry type {obj["type"].Value<string>()}")
+                GeoType.GeometryCollection => GeometryAs<GeometryCollection>(obj, serializer),
+                GeoType.Polygon => GeometryAs<Polygon>(obj, serializer),
+                GeoType.LineString => GeometryAs<LineString>(obj, serializer),
+                GeoType.MultiLineString => GeometryAs<MultiLineString>(obj, serializer),
+                GeoType.MultiPolygon => GeometryAs<MultiPolygon>(obj, serializer),
+                GeoType.Point => GeometryAs<Point>(obj, serializer),
+                _ => throw new JsonException($"Unsupported geometry type {geometryType}")
             };
         }
+        
+        public override bool CanConvert(Type objectType) => 
+            typeof(Geometry).IsAssignableFrom(objectType);
 
         static T GeometryAs<T>(JToken input, JsonSerializer serializer) where T : new()
         {
             using var jsonReader = input.CreateReader();
             return serializer.PopulateObject(jsonReader, new T());
         }
-
-        public override bool CanConvert(Type objectType) => 
-            typeof(Geometry).IsAssignableFrom(objectType);
     }
 }
