@@ -14,7 +14,7 @@ namespace Appy.Spatial.GeoJSON.TextJson
             var readerClone = reader;
             
             if (readerClone.TokenType != JsonTokenType.StartObject) 
-                throw new JsonException();
+                throw new JsonException("TokenType is not StartObject");
 
             var propertyName = string.Empty;
             var initialDepth = readerClone.CurrentDepth + 1;

@@ -66,17 +66,19 @@ public class SerialisationTests
     {
         var props = new Props { Id = "test" };
         
-        ShouldSerializeAndDeserialize(geometry, NewtonsoftSerialize, NewtonsoftDeserialise<Geometry>);
-        ShouldSerializeAndDeserialize(new Feature<T> { Geometry = geometry }, NewtonsoftSerialize, NewtonsoftDeserialise<Feature>);
-        ShouldSerializeAndDeserialize(new Feature<T, Props> { Geometry = geometry, Properties = props }, NewtonsoftSerialize, NewtonsoftDeserialise<Feature<T, Props>>);
-        ShouldSerializeAndDeserialize(new Feature<T, Props> { Geometry = geometry, Properties = props }, NewtonsoftSerialize, NewtonsoftDeserialise<Feature<T, Props>>);
-        ShouldSerializeAndDeserialize(new NestedObject<T>(geometry), NewtonsoftSerialize, NewtonsoftDeserialise<NestedObject<T>>);
-        ShouldSerializeAndDeserialize(new InheritanceWithoutArguments { Geometry = geometry }, NewtonsoftSerialize, NewtonsoftDeserialise<InheritanceWithoutArguments>);
-        ShouldSerializeAndDeserialize(new InheritanceWithoutArgumentsAndProps { Geometry = geometry, Properties = props }, NewtonsoftSerialize, NewtonsoftDeserialise<InheritanceWithoutArgumentsAndProps>);
+        ShouldSerializeAndDeserialize(geometry, NewtonsoftSerialize, NewtonsoftDeserialize<Geometry>);
+        ShouldSerializeAndDeserialize(geometry, NewtonsoftSerialize, NewtonsoftDeserialize<T>);
+        ShouldSerializeAndDeserialize(new Feature<T> { Geometry = geometry }, NewtonsoftSerialize, NewtonsoftDeserialize<Feature>);
+        ShouldSerializeAndDeserialize(new Feature<T, Props> { Geometry = geometry, Properties = props }, NewtonsoftSerialize, NewtonsoftDeserialize<Feature<T, Props>>);
+        ShouldSerializeAndDeserialize(new Feature<T, Props> { Geometry = geometry, Properties = props }, NewtonsoftSerialize, NewtonsoftDeserialize<Feature<T, Props>>);
+        ShouldSerializeAndDeserialize(new NestedObject<T>(geometry), NewtonsoftSerialize, NewtonsoftDeserialize<NestedObject<T>>);
+        ShouldSerializeAndDeserialize(new InheritanceWithoutArguments { Geometry = geometry }, NewtonsoftSerialize, NewtonsoftDeserialize<InheritanceWithoutArguments>);
+        ShouldSerializeAndDeserialize(new InheritanceWithoutArgumentsAndProps { Geometry = geometry, Properties = props }, NewtonsoftSerialize, NewtonsoftDeserialize<InheritanceWithoutArgumentsAndProps>);
         
         ShouldSerializeAndDeserialize(geometry, SystemTextSerialize, SystemTextDeserialize<Geometry>);
-        ShouldSerializeAndDeserialize(new Feature<T> {Geometry = geometry}, SystemTextSerialize, SystemTextDeserialize<Feature>);
-        ShouldSerializeAndDeserialize(new Feature<T, Props> {Geometry = geometry, Properties = props }, SystemTextSerialize, SystemTextDeserialize<Feature<T, Props>>);
+        ShouldSerializeAndDeserialize(geometry, SystemTextSerialize, SystemTextDeserialize<T>);
+        ShouldSerializeAndDeserialize(new Feature<T> { Geometry = geometry }, SystemTextSerialize, SystemTextDeserialize<Feature>);
+        ShouldSerializeAndDeserialize(new Feature<T, Props> { Geometry = geometry, Properties = props }, SystemTextSerialize, SystemTextDeserialize<Feature<T, Props>>);
         ShouldSerializeAndDeserialize(new NestedObject<T>(geometry), SystemTextSerialize, SystemTextDeserialize<NestedObject<T>>);
         ShouldSerializeAndDeserialize(new InheritanceWithoutArguments { Geometry = geometry }, SystemTextSerialize, SystemTextDeserialize<InheritanceWithoutArguments>);
         ShouldSerializeAndDeserialize(new InheritanceWithoutArgumentsAndProps { Geometry = geometry, Properties = props }, SystemTextSerialize, SystemTextDeserialize<InheritanceWithoutArgumentsAndProps>);
@@ -91,7 +93,7 @@ public class SerialisationTests
     }
     
     string NewtonsoftSerialize(object obj) => JsonConvert.SerializeObject(obj, _newtonsoftSerializerSettings);
-    T NewtonsoftDeserialise<T>(string value) => JsonConvert.DeserializeObject<T>(value, _newtonsoftSerializerSettings);
+    T NewtonsoftDeserialize<T>(string value) => JsonConvert.DeserializeObject<T>(value, _newtonsoftSerializerSettings);
     
     string SystemTextSerialize(object obj) => System.Text.Json.JsonSerializer.Serialize(obj, _textJsonSerializerOptions);
     T SystemTextDeserialize<T>(string value) => System.Text.Json.JsonSerializer.Deserialize<T>(value, _textJsonSerializerOptions);
