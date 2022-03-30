@@ -12,9 +12,6 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
         
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (!CanConvert(objectType)) 
-                throw new JsonException($"Unsupported target type {objectType}");
-
             var token = JToken.Load(reader);
 
             if (token is not JObject obj) 
@@ -35,7 +32,7 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
         }
         
         public override bool CanConvert(Type objectType) => 
-            typeof(Geometry).IsAssignableFrom(objectType);
+            typeof(Geometry) == objectType;
 
         static T GeometryAs<T>(JToken input, JsonSerializer serializer) where T : new()
         {
