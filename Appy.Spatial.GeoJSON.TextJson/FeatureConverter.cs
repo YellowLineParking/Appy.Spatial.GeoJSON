@@ -7,7 +7,7 @@ namespace Appy.Spatial.GeoJSON.TextJson
     public class FeatureConverter : JsonConverter<Feature>
     {
         public override bool CanConvert(Type typeToConvert) =>
-            typeof(Feature) == typeToConvert && typeToConvert.GenericTypeArguments.Length == 0;
+            typeof(Feature) == typeToConvert;
 
         public override Feature Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
