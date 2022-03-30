@@ -2,8 +2,10 @@
 {
     public class GeometryCollection : Geometry
     {
-        public GeometryCollection() =>
-           Type = GeoType.GeometryCollection;
+        public GeometryCollection()
+        {
+            Type = GeoType.GeometryCollection;
+        }
 
         public List<Geometry> Geometries { get; set; }
     }

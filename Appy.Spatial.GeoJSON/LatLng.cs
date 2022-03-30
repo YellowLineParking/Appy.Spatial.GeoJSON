@@ -5,8 +5,7 @@
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
-        public Point AsPoint() =>
-            new Point(new[] { Longitude, Latitude });
+        public Point AsPoint() => new(new[] { Longitude, Latitude });
     }
 
     public class LatLngComparer : IEqualityComparer<LatLng>
@@ -15,13 +14,8 @@
             x == null && y == null ||
             x != null && y != null && x.Latitude.Equals(y.Latitude) && x.Longitude.Equals(y.Latitude);
         
-
-        public int GetHashCode(LatLng obj)
-        {
-            var result = obj.Latitude.GetHashCode();
-            result += obj.Longitude.GetHashCode();
-
-            return result;
-        }
+        public int GetHashCode(LatLng obj) => 
+            obj.Latitude.GetHashCode() + 
+            obj.Longitude.GetHashCode();
     }
 }
