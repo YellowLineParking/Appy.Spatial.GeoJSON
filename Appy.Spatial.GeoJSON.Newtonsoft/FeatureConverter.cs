@@ -40,7 +40,7 @@ namespace Appy.Spatial.GeoJSON.Newtonsoft
         }
         
         public override bool CanConvert(Type objectType) => 
-            typeof(Feature) == objectType && objectType.GenericTypeArguments.Length == 0;
+            typeof(Feature) == objectType;
 
         static Feature<T> FeatureOf<T>(JToken input, JsonSerializer serializer) where T : Geometry
         {
