@@ -8,7 +8,7 @@ namespace Appy.Spatial.GeoJSON.TextJson
     {
         public override bool CanConvert(Type typeToConvert) =>
             typeof(Geometry) == typeToConvert;
-
+        
         public override Geometry Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var readerClone = reader;
@@ -34,9 +34,9 @@ namespace Appy.Spatial.GeoJSON.TextJson
 
             readerClone.Read();
             
-            var geoType = readerClone.GetString();
+            var geometryType = readerClone.GetString();
 
-            return geoType switch
+            return geometryType switch
             {
                 GeoType.GeometryCollection => GeometryAs<GeometryCollection>(ref reader, options),
                 GeoType.Polygon => GeometryAs<Polygon>(ref reader, options),
@@ -44,14 +44,14 @@ namespace Appy.Spatial.GeoJSON.TextJson
                 GeoType.MultiLineString => GeometryAs<MultiLineString>(ref reader, options),
                 GeoType.MultiPolygon => GeometryAs<MultiPolygon>(ref reader, options),
                 GeoType.Point => GeometryAs<Point>(ref reader, options),
-                _ => throw new JsonException($"Unsupported geometry type: {geoType}")
+                _ => throw new JsonException($"Unsupported geometry type: {geometryType}")
             };
         }
         
-        static TGeometry GeometryAs<TGeometry>(ref Utf8JsonReader reader, JsonSerializerOptions options) where TGeometry : Geometry => 
-            JsonSerializer.Deserialize<TGeometry>(ref reader, options);
-
         public override void Write(Utf8JsonWriter writer, Geometry geometry, JsonSerializerOptions options) =>
             JsonSerializer.Serialize(writer, geometry, geometry.GetType(), options);
+        
+        static TGeometry GeometryAs<TGeometry>(ref Utf8JsonReader reader, JsonSerializerOptions options) where TGeometry : Geometry => 
+            JsonSerializer.Deserialize<TGeometry>(ref reader, options);
     }
 }
