@@ -5,8 +5,10 @@
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
-    <Import Project="..\version.props" />
-    
+    <ItemGroup>
+      <None Include="../../resources/small-logo.png" Pack="true" PackagePath="\" Link="Properties/small-logo.png" />
+    </ItemGroup>
+
     <ItemGroup>
       <ProjectReference Include="..\Appy.Spatial.GeoJSON\Appy.Spatial.GeoJSON.csproj" />
     </ItemGroup>
@@ -22,5 +24,18 @@
     <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
         <PackageReference Include="System.Text.Json" Version="6.0.0" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[$(AnnotatedReferenceAssemblyVersion)]" />
+      <PackageReference Include="Nullable" Version="$(NullablePackageVersion)">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+    <PropertyGroup>
+      <AnnotatedReferenceAssemblyVersion>3.0.0</AnnotatedReferenceAssemblyVersion>
+      <GenerateNullableAttributes>False</GenerateNullableAttributes>
+    </PropertyGroup>
 
 </Project>

@@ -5,10 +5,12 @@
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
-    <Import Project="..\version.props" />
-    
     <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <None Include="../../resources/small-logo.png" Pack="true" PackagePath="\" Link="Properties/small-logo.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJsonPackageVersion)" />
     </ItemGroup>
 
     <ItemGroup>
