@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package Information">
-    <Description>AppyWay Parsing</Description>
+    <Description>AppyWay Spatial GeoJson</Description>
     <Company>AppyWay</Company>
     <Copyright>AppyWay</Copyright>
     <Authors>AppyWay</Authors>
