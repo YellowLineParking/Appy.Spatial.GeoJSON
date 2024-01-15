@@ -1,14 +1,13 @@
 ﻿using System.Text.Json;
 
-namespace Appy.Spatial.GeoJSON.TextJson
+namespace Appy.Spatial.GeoJSON.TextJson;
+
+public static class Extensions
 {
-    public static class Extensions
+    public static JsonSerializerOptions UseGeoJsonConverters(this JsonSerializerOptions options)
     {
-        public static JsonSerializerOptions UseGeoJsonConverters(this JsonSerializerOptions options)
-        {
-            options.Converters.Add(new FeatureConverter());
-            options.Converters.Add(new GeometryConverter());
-            return options;
-        }
+        options.Converters.Add(new FeatureConverter());
+        options.Converters.Add(new GeometryConverter());
+        return options;
     }
 }

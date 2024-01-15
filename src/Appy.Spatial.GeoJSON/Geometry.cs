@@ -1,28 +1,23 @@
-﻿namespace Appy.Spatial.GeoJSON
+﻿namespace Appy.Spatial.GeoJSON;
+
+public abstract class Geometry
 {
-    public abstract class Geometry
+    public string Type { get; set; }
+    public Crs Crs { get; set; }
+}
+
+public abstract class Geometry<T> : Geometry
+{
+    protected Geometry(string type)
     {
-        public string Type { get; set; }
-        public Crs Crs { get; set; }
+        Type = type;
     }
 
-    public abstract class Geometry<T> : Geometry
+    protected Geometry(string type, T coordinates)
     {
-        protected Geometry(string type)
-        {
-            Type = type;
-        }
-
-        protected Geometry(string type, T coordinates)
-        {
-            Type = type;
-            Coordinates = coordinates;
-        }
+        Type = type;
+        Coordinates = coordinates;
+    }
         
-        public T Coordinates { get; set; }
-    }
-
-    
-
- 
+    public T Coordinates { get; set; }
 }

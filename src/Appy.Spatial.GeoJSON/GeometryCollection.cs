@@ -1,12 +1,13 @@
-﻿namespace Appy.Spatial.GeoJSON
-{
-    public class GeometryCollection : Geometry
-    {
-        public GeometryCollection()
-        {
-            Type = GeoType.GeometryCollection;
-        }
+﻿using System.Collections.Generic;
 
-        public List<Geometry> Geometries { get; set; }
+namespace Appy.Spatial.GeoJSON;
+
+public class GeometryCollection : Geometry
+{
+    public GeometryCollection()
+    {
+        Type = GeoType.GeometryCollection;
     }
+
+    public List<Geometry> Geometries { get; set; }
 }

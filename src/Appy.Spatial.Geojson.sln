@@ -6,24 +6,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appy.Spatial.GeoJSON.Newton
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appy.Spatial.GeoJSON.TextJson", "Appy.Spatial.GeoJSON.TextJson\Appy.Spatial.GeoJSON.TextJson.csproj", "{CDFFB90F-9DE9-4EE6-B088-ABDCE0AFCE26}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D7D58114-E0A9-4F2F-96AE-598A4B359A7A}"
-	ProjectSection(SolutionItems) = preProject
-		appveyor.yml = appveyor.yml
-		build.ps1 = build.ps1
-		config.yml = config.yml
-		functions.ps1 = functions.ps1
-		tasks.ps1 = tasks.ps1
-		version.props = version.props
-		global.json = global.json
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Project", "1. Project", "{09A46B69-0EEB-4CF7-8857-BFC27F600C45}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Extensions", "2. Extensions", "{12D32EB2-3BA6-4ECC-801A-C379BBE2C34F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Packages", "2. Packages", "{12D32EB2-3BA6-4ECC-801A-C379BBE2C34F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99. Tests", "99. Tests", "{F376B16D-2CBD-4D07-858E-7791A9FBAD4D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appy.Spatial.GeoJSON.Tests", "Appy.Spatial.GeoJSON.Tests\Appy.Spatial.GeoJSON.Tests.csproj", "{886A1237-45D1-4580-9B8F-0531B5CC297B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{7F6AB84F-685C-4465-BB36-2832CB151EFF}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		..\build.cake = ..\build.cake
+		..\config.yml = ..\config.yml
+		..\dotnet-tools.json = ..\dotnet-tools.json
+		..\functions.cake = ..\functions.cake
+		..\global.json = ..\global.json
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

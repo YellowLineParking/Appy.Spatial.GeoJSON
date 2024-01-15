@@ -1,7 +1,7 @@
-#addin nuget:?package=YamlDotNet&version=8.1.2
+#addin nuget:?package=YamlDotNet&version=13.7.1
 #addin nuget:?package=System.Xml.XDocument&version=4.3.0
-#addin nuget:?package=Cake.MinVer&version=2.0.0
-#addin nuget:?package=Cake.Yaml&version=3.1.1
+#addin nuget:?package=Cake.MinVer&version=3.0.0
+#addin nuget:?package=Cake.Yaml&version=6.0.0
 
 #load "./functions.cake"
 
@@ -41,7 +41,7 @@ Task("Restore")
     DotNetRestore(basePath,
         new DotNetRestoreSettings
         {
-            Verbosity = DotNetCoreVerbosity.Minimal
+            Verbosity = DotNetVerbosity.Minimal
         });
 });
 
@@ -59,7 +59,7 @@ Task("Build-Project")
             Configuration = configuration,
             NoRestore = true,
             NoIncremental = context.HasArgument("rebuild"),
-            MSBuildSettings = new DotNetCoreMSBuildSettings()
+            MSBuildSettings = new DotNetMSBuildSettings()
                 .TreatAllWarningsAs(MSBuildTreatAllWarningsAs.Error)
         });
     }
@@ -104,7 +104,7 @@ Task("Package")
             NoRestore = true,
             NoBuild = true,
             OutputDirectory = artifactsPath,
-            MSBuildSettings = new DotNetCoreMSBuildSettings()
+            MSBuildSettings = new DotNetMSBuildSettings()
                 .TreatAllWarningsAs(MSBuildTreatAllWarningsAs.Error)
         });
     }
@@ -163,7 +163,7 @@ Task("Publish-Package-NuGet")
 
         context.Information("Publishing {0} to Nuget", nugetPkgFilePath);
 
-        DotNetCoreNuGetPush(nugetPkgFilePath, new DotNetCoreNuGetPushSettings
+        DotNetNuGetPush(nugetPkgFilePath, new DotNetNuGetPushSettings
         {
             Source = "https://api.nuget.org/v3/index.json",
             ApiKey = apiKey,
