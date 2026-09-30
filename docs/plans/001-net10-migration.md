@@ -19,7 +19,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
 | Remove the `System.Text.Json` package | In-box on net8+; the package only served `netstandard2.0`/`net6.0` | Keep it: NU1510 pruning warning, fails the warnings-as-errors build |
 | `Newtonsoft.Json` **13.0.4** | Latest stable. Apps that pin a lower version directly must bump it with 2.0.0 (NU1605) | Keep 13.0.3: no advisory against it, but stays behind latest |
 | Tests: `xunit.v3` 3.2.2, `xunit.runner.visualstudio` 3.1.5, FluentAssertions 7.2.2, `Microsoft.NET.Test.Sdk` 18.10.1, `GitHubActionsTestLogger` 2.4.1 | xUnit v2 is in maintenance. FluentAssertions 8 needs a commercial licence. Logger 3.x and `XunitXml.TestLogger` 8.x need Microsoft.Testing.Platform 2 (CS1705 against xunit.v3 3.2.2's 1.9.1); the XML logger was unused | xUnit 2.9.3 (as in Appy.Configuration); `xunit.v3` 4.x |
-| Build tooling as Appy.Configuration: Cake 6.0.0, Cake.MinVer 4.0.0, Cake.Yaml 6.0.0, YamlDotNet 16.2.0, MinVer 2.3.0, traversal `src/build.csproj`, `.sln` kept | Same pipeline across repos; MinVer 2.3.0 keeps versioning unchanged | MinVer 8: new pre-release options, out of scope |
+| Build tooling as Appy.Configuration: Cake 6.0.0, Cake.MinVer 4.0.0, Cake.Yaml 6.0.0, YamlDotNet 16.2.0, MinVer 2.3.0, `.sln` kept; `build.cake` builds the `config.yml` projects one by one | Same pipeline across repos; MinVer 2.3.0 keeps versioning unchanged | Traversal `src/build.csproj`: not adopted yet. MinVer 8: new pre-release options, out of scope |
 | CI installs only the SDK in `global.json` | SDK 10 builds the `net8.0` target from reference packs; tests run on `net10.0`; the Cake, MinVer and gpr tools roll forward | Also install 8.0.x (as Appy.Configuration does): not needed |
 | Package validation against 1.4.0 | Catches accidental API breaks; only the dropped TFMs are suppressed (PKV006) | None; Appy.Configuration has no validation |
 | `MinVerMinimumMajorMinor` 2.0 (MSBuild and `build.cake`) | The master push that follows the merge publishes a preview. Without this it is `1.4.1-preview`, carrying breaking changes. Cake computes the package path, so both must agree | Skip it and accept one misleading preview |
@@ -37,9 +37,8 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
   `TunnelVisionLabs.ReferenceAssemblyAnnotator`, `coverlet.collector`, `XunitXml.TestLogger`) and the
   `Version="$(...)"` attributes in the test csproj.
   Test: same 6 tests pass. The run reports a non-zero count.
-- [x] 3. `chore(build): upgrade cake to 6.0.0 with traversal build`. Update `dotnet-tools.json`,
-  `build.cake` (addins, traversal branch), `global.json` `msbuild-sdks` (Traversal 4.1.82), and add
-  `src/build.csproj`. `config.yml` still drives packing and publishing.
+- [x] 3. `chore(build): upgrade cake to 6.0.0`. Update `dotnet-tools.json` and the `build.cake`
+  addins. `config.yml` still drives build, test, pack and publish (no traversal build).
   Test: `dotnet tool restore && dotnet cake` is green. `.artifacts/` holds 3 nupkgs with
   `lib/net8.0` and `lib/net10.0` only.
 - [x] 4. `ci: build and publish with .NET 10 SDK`. In `ci.yaml` and `publish.yaml`, move to
@@ -77,11 +76,10 @@ move `PackageValidationBaselineVersion` to 2.0.0 and delete the `CompatibilitySu
 ## Key Files
 
 ```
-global.json                          # SDK 10 + Traversal SDK
+global.json                          # SDK 10
 dotnet-tools.json                    # Cake 6
 build.cake                           # Cake pipeline, MinVer settings
 config.yml                           # projects to build, test and pack
-src/build.csproj                     # traversal project (new)
 src/Directory.Build.props            # package metadata
 src/Directory.Build.targets          # package validation, MinVer settings
 src/*/CompatibilitySuppressions.xml  # PKV006 for the dropped TFMs (new)
