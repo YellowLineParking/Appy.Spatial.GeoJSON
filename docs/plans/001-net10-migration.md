@@ -71,7 +71,8 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
 ## Release
 
 Maintainers rebase-merge the PR; the master push publishes `2.0.0-preview.0.N`. Tagging `2.0.0` on
-master publishes the release. Then `docs(readme): change packages version to 2.0.0` (badges).
+master publishes the release. Then `docs(readme): change packages version to 2.0.0` (badges), and
+move `PackageValidationBaselineVersion` to 2.0.0 and delete the `CompatibilitySuppressions.xml` files.
 
 ## Key Files
 
