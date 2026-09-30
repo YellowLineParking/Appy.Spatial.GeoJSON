@@ -42,7 +42,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
   `src/build.csproj`. `config.yml` still drives packing and publishing.
   Test: `dotnet tool restore && dotnet cake` is green. `.artifacts/` holds 3 nupkgs with
   `lib/net8.0` and `lib/net10.0` only.
-- [ ] 4. `ci: build and publish with .NET 10 SDK`. In `ci.yaml` and `publish.yaml`, move to
+- [x] 4. `ci: build and publish with .NET 10 SDK`. In `ci.yaml` and `publish.yaml`, move to
   `actions/checkout@v6`, `actions/cache@v5` and `actions/setup-dotnet@v5`, SDK from `global.json`
   only. Triggers stay as they are.
   Test: PR checks green on Windows, macOS and Linux.
