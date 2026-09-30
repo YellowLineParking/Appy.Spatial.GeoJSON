@@ -50,4 +50,4 @@ publishes a `-preview` build with the commit height.
 
 | Plan | Status | Summary |
 |------|--------|---------|
-| [001 .NET 10 Migration](plans/001-net10-migration.md) | Planned | `net10.0;net9.0;net8.0`, SDK 10, Cake 6, xUnit v3; release 2.0.0 |
+| [001 .NET 10 Migration](plans/001-net10-migration.md) | In Progress | `net10.0;net8.0`, SDK 10, Cake 6, xUnit v3; release 2.0.0 |
