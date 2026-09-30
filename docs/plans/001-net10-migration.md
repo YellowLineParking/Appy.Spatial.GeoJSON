@@ -37,7 +37,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
   `TunnelVisionLabs.ReferenceAssemblyAnnotator`, `coverlet.collector`, `XunitXml.TestLogger`) and the
   `Version="$(...)"` attributes in the test csproj.
   Test: same 6 tests pass. The run reports a non-zero count.
-- [ ] 3. `chore(build): upgrade cake to 6.0.0 with traversal build`. Update `dotnet-tools.json`,
+- [x] 3. `chore(build): upgrade cake to 6.0.0 with traversal build`. Update `dotnet-tools.json`,
   `build.cake` (addins, traversal branch), `global.json` `msbuild-sdks` (Traversal 4.1.82), and add
   `src/build.csproj`. `config.yml` still drives packing and publishing.
   Test: `dotnet tool restore && dotnet cake` is green. `.artifacts/` holds 3 nupkgs with
