@@ -50,7 +50,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
   `PackageValidationBaselineVersion` 1.4.0 to packable projects. Pack fails first on PKV006 (the
   dropped TFMs). Then add a `CompatibilitySuppressions.xml` with PKV006 only.
   Test: `dotnet cake` is green. No CP0xxx (API) diagnostics.
-- [ ] 6. `build: start versions at 2.0`. Set `MinVerMinimumMajorMinor` 2.0 in
+- [x] 6. `build: start versions at 2.0`. Set `MinVerMinimumMajorMinor` 2.0 in
   `src/Directory.Build.targets` and `.WithMinimumMajorMinor("2.0")` in `build.cake`.
   Test: `dotnet cake` logs `2.0.0-preview.0.N`. The nupkg names match the version Cake logs.
 - [ ] 7. `docs: update readme and contributing for net10`. The README gets a supported-frameworks
