@@ -45,3 +45,9 @@ Each converter package exposes one extension, `UseGeoJsonConverters()`, on `Json
 
 MinVer computes the version from the latest tag: a tag publishes that release, and a `master` push
 publishes a `-preview` build with the commit height.
+
+## Plans
+
+| Plan | Status | Summary |
+|------|--------|---------|
+| [001 .NET 10 Migration](plans/001-net10-migration.md) | Planned | `net10.0;net9.0;net8.0`, SDK 10, Cake 6, xUnit v3; release 2.0.0 |
