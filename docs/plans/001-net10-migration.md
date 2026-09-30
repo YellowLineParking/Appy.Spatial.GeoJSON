@@ -64,7 +64,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
 - [x] Nuspecs: TextJson has no `System.Text.Json` dependency; Newtonsoft depends on
   `Newtonsoft.Json` >= 13.0.3; groups only for net8.0 and net10.0.
 - [x] Package validation passes with only PKV006 suppressed.
-- [ ] PR CI green on all three OS jobs.
+- [x] PR CI green on all three OS jobs.
 - [ ] Done when merged and nuget.org lists 2.0.0 for `Appy.Spatial.GeoJSON`,
   `Appy.Spatial.GeoJSON.Newtonsoft` and `Appy.Spatial.GeoJSON.TextJson`.
 
