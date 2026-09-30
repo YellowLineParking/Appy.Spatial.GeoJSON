@@ -60,10 +60,10 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
 
 ## Verification
 
-- [ ] `dotnet cake` (Default target) green locally on SDK 10, warnings as errors, 6/6 tests.
-- [ ] Nuspecs: TextJson has no `System.Text.Json` dependency; Newtonsoft depends on
+- [x] `dotnet cake` (Default target) green locally on SDK 10, warnings as errors, 6/6 tests.
+- [x] Nuspecs: TextJson has no `System.Text.Json` dependency; Newtonsoft depends on
   `Newtonsoft.Json` >= 13.0.3; groups only for net8.0 and net10.0.
-- [ ] Package validation passes with only PKV006 suppressed.
+- [x] Package validation passes with only PKV006 suppressed.
 - [ ] PR CI green on all three OS jobs.
 - [ ] Done when merged and nuget.org lists 2.0.0 for `Appy.Spatial.GeoJSON`,
   `Appy.Spatial.GeoJSON.Newtonsoft` and `Appy.Spatial.GeoJSON.TextJson`.
@@ -81,8 +81,9 @@ dotnet-tools.json                    # Cake 6
 build.cake                           # Cake pipeline, MinVer settings
 config.yml                           # projects to build, test and pack
 src/build.csproj                     # traversal project (new)
-src/Directory.Build.props            # package metadata, package validation
-src/Directory.Build.targets          # MinVer settings
+src/Directory.Build.props            # package metadata
+src/Directory.Build.targets          # package validation, MinVer settings
+src/*/CompatibilitySuppressions.xml  # PKV006 for the dropped TFMs (new)
 src/Directory.Packages.props         # central package versions
 src/*/*.csproj                       # target frameworks
 .github/workflows/ci.yaml            # PR build
