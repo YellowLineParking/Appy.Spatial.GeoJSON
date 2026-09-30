@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <NoWarn>1571;1572;1573;1574;1591</NoWarn>
+    <NoWarn>1571;1572;1573;1574;1591;NU1507</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Label="Source Link">
