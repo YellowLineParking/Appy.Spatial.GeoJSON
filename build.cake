@@ -15,6 +15,7 @@ var transversalBuildFilePath = $"{basePath}/build.csproj";
 var taskConfigManager = new ProjectTaskConfigurationManager();
 var projectDescriptors = ProjectLoader.Load(Context, configFilePath, basePath, configuration).Projects;
 var version = MinVer(settings => settings
+    .WithMinimumMajorMinor("2.0")
     .WithDefaultPreReleasePhase("preview")
     .WithVerbosity(MinVerVerbosity.Info));
 
