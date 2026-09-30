@@ -1,4 +1,13 @@
 <Project>
+  <PropertyGroup Label="Package Validation" Condition="'$(IsPackable)' != 'false' And '$(UsingMicrosoftTraversalSdk)' != 'true'">
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <PackageValidationBaselineVersion>1.4.0</PackageValidationBaselineVersion>
+  </PropertyGroup>
+
+  <!-- MinVer sets the version just before GenerateNuspec; run it before NuGet computes the package
+       path so package validation finds the right .nupkg. -->
+  <Target Name="MinVerBeforePackOutputs" BeforeTargets="_GetOutputItemsFromPack" DependsOnTargets="MinVer" />
+
   <Target Name="Versioning" BeforeTargets="MinVer">
     <PropertyGroup Label="Build">
       <MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>

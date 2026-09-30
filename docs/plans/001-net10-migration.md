@@ -46,7 +46,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
   `actions/checkout@v6`, `actions/cache@v5` and `actions/setup-dotnet@v5`, SDK from `global.json`
   only. Triggers stay as they are.
   Test: PR checks green on Windows, macOS and Linux.
-- [ ] 5. `build: validate packages against 1.4.0`. Add `EnablePackageValidation` and
+- [x] 5. `build: validate packages against 1.4.0`. Add `EnablePackageValidation` and
   `PackageValidationBaselineVersion` 1.4.0 to packable projects. Pack fails first on PKV006 (the
   dropped TFMs). Then add a `CompatibilitySuppressions.xml` with PKV006 only.
   Test: `dotnet cake` is green. No CP0xxx (API) diagnostics.
