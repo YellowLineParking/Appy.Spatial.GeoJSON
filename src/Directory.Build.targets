@@ -1,5 +1,5 @@
 <Project>
-  <PropertyGroup Label="Package Validation" Condition="'$(IsPackable)' != 'false' And '$(UsingMicrosoftTraversalSdk)' != 'true'">
+  <PropertyGroup Label="Package Validation" Condition="'$(IsPackable)' != 'false'">
     <EnablePackageValidation>true</EnablePackageValidation>
     <PackageValidationBaselineVersion>1.4.0</PackageValidationBaselineVersion>
   </PropertyGroup>
