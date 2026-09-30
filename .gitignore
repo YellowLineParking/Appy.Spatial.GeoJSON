@@ -21,7 +21,6 @@ dotnet-install.sh*
 .vs/
 .vscode/
 launchSettings.json
-*.sln.ide/
 
 # Rider
 src/.idea/**/workspace.xml
@@ -41,7 +40,6 @@ src/.idea/**/uiDesigner.xml
 # User-specific files
 *.suo
 *.user
-*.sln.docstates
 *.userprefs
 *.GhostDoc.xml
 *StyleCop.Cache

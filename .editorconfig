@@ -8,13 +8,10 @@ indent_size = 4
 insert_final_newline = false
 trim_trailing_whitespace = true
 
-[*.sln]
-indent_style = tab
-
 [*.{csproj,vbproj,vcxproj,vcxproj.filters}]
 indent_size = 2
 
-[*.{xml,config,props,targets,nuspec,ruleset}]
+[*.{xml,config,props,targets,nuspec,ruleset,slnx}]
 indent_size = 2
 
 [*.{yml,yaml}]

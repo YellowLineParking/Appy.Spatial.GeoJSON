@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/1. Project/">
+    <Project Path="Appy.Spatial.GeoJSON/Appy.Spatial.GeoJSON.csproj" />
+  </Folder>
+  <Folder Name="/2. Packages/">
+    <Project Path="Appy.Spatial.GeoJSON.Newtonsoft/Appy.Spatial.GeoJSON.Newtonsoft.csproj" />
+    <Project Path="Appy.Spatial.GeoJSON.TextJson/Appy.Spatial.GeoJSON.TextJson.csproj" />
+  </Folder>
+  <Folder Name="/99. Tests/">
+    <Project Path="Appy.Spatial.GeoJSON.Tests/Appy.Spatial.GeoJSON.Tests.csproj" />
+  </Folder>
+  <Folder Name="/build/">
+    <File Path="../build.cake" />
+    <File Path="../config.yml" />
+    <File Path="../dotnet-tools.json" />
+    <File Path="../functions.cake" />
+    <File Path="../global.json" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+</Solution>
