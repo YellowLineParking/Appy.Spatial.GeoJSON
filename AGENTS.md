@@ -20,8 +20,8 @@ Architecture and CI: [docs/Architecture.md](docs/Architecture.md).
 ```bash
 dotnet tool restore                          # Cake, MinVer CLI, gpr
 dotnet cake                                  # Default target: Clean, Build, Test, Package (.artifacts/)
-dotnet test src/Appy.Spatial.Geojson.sln
-dotnet test src/Appy.Spatial.Geojson.sln --filter "FullyQualifiedName~SerialisationTests.ShouldRoundTripPoint"
+dotnet test src/Appy.Spatial.GeoJSON.slnx
+dotnet test src/Appy.Spatial.GeoJSON.slnx --filter "FullyQualifiedName~SerialisationTests.ShouldRoundTripPoint"
 ```
 
 - `build.cake` builds the projects listed in `config.yml` (`Type: Package` or `Type: Test`); add new
