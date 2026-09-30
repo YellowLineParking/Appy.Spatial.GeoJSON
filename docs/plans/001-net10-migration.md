@@ -53,7 +53,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
 - [x] 6. `build: start versions at 2.0`. Set `MinVerMinimumMajorMinor` 2.0 in
   `src/Directory.Build.targets` and `.WithMinimumMajorMinor("2.0")` in `build.cake`.
   Test: `dotnet cake` logs `2.0.0-preview.0.N`. The nupkg names match the version Cake logs.
-- [ ] 7. `docs: update readme and contributing for net10`. The README gets a supported-frameworks
+- [x] 7. `docs: update readme and contributing for net10`. The README gets a supported-frameworks
   line and says that `netstandard2.0`/`net6.0` users should stay on 1.4.x. In `CONTRIBUTING.md`,
   replace `build.ps1` with `dotnet tool restore && dotnet cake`.
   Test: the links resolve.
