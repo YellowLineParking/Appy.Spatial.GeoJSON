@@ -26,7 +26,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
 
 ## Tasks
 
-- [ ] 1. `feat(net10): target net10.0 and net8.0`. `global.json` SDK `10.0.103`,
+- [x] 1. `feat(net10): target net10.0 and net8.0`. `global.json` SDK `10.0.103`,
   `rollForward: latestFeature`. The three library csproj files go to `net10.0;net8.0`, tests
   to `net10.0`. Remove the `netstandard2.0` shims (`Nullable` package, `PackageDownload`
   `Microsoft.NETCore.App.Ref`, `AnnotatedReferenceAssemblyVersion`, per-project `LangVersion`) and

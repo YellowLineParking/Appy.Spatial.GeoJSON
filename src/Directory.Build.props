@@ -24,7 +24,7 @@
     <PackageProjectUrl>https://github.com/YellowLineParking/Appy.Spatial.GeoJSON</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>https://github.com/YellowLineParking/Appy.Spatial.GeoJSON/releases</PackageReleaseNotes>
-    <PackageTags>NET8;NET6;NetStandard</PackageTags>
+    <PackageTags>NET10;NET8</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup>
