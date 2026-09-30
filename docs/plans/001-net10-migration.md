@@ -17,7 +17,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
 | Libraries `net10.0;net8.0`, tests `net10.0` | The two LTS releases. `net9.0` apps resolve the `net8.0` asset; `net6.0` is out of support | Also `net9.0`: no API gain. Keep `netstandard2.0`: keeps the nullable shim and the System.Text.Json package for no current need |
 | Version **2.0.0** | Dropping `netstandard2.0` ends .NET Framework and pre-net8 support: breaking under SemVer. Those users stay on 1.4.x | Minor bump (Appy.Configuration used 1.2.0 for the same drop): hides the break |
 | Remove the `System.Text.Json` package | In-box on net8+; the package only served `netstandard2.0`/`net6.0` | Keep it: NU1510 pruning warning, fails the warnings-as-errors build |
-| `Newtonsoft.Json` floor stays **13.0.3** | Raising it to 13.0.4 breaks users who pin 13.0.3 directly (NU1605). 13.0.3 has no advisory | 13.0.4 (latest): no functional gain |
+| `Newtonsoft.Json` **13.0.4** | Latest stable. Apps that pin a lower version directly must bump it with 2.0.0 (NU1605) | Keep 13.0.3: no advisory against it, but stays behind latest |
 | Tests: `xunit.v3` 3.2.2, `xunit.runner.visualstudio` 3.1.5, FluentAssertions 7.2.2, `Microsoft.NET.Test.Sdk` 18.10.1, `GitHubActionsTestLogger` 2.4.1 | xUnit v2 is in maintenance. FluentAssertions 8 needs a commercial licence. Logger 3.x and `XunitXml.TestLogger` 8.x need Microsoft.Testing.Platform 2 (CS1705 against xunit.v3 3.2.2's 1.9.1); the XML logger was unused | xUnit 2.9.3 (as in Appy.Configuration); `xunit.v3` 4.x |
 | Build tooling as Appy.Configuration: Cake 6.0.0, Cake.MinVer 4.0.0, Cake.Yaml 6.0.0, YamlDotNet 16.2.0, MinVer 2.3.0, traversal `src/build.csproj`, `.sln` kept | Same pipeline across repos; MinVer 2.3.0 keeps versioning unchanged | MinVer 8: new pre-release options, out of scope |
 | CI installs only the SDK in `global.json` | SDK 10 builds the `net8.0` target from reference packs; tests run on `net10.0`; the Cake, MinVer and gpr tools roll forward | Also install 8.0.x (as Appy.Configuration does): not needed |
@@ -62,7 +62,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
 
 - [x] `dotnet cake` (Default target) green locally on SDK 10, warnings as errors, 6/6 tests.
 - [x] Nuspecs: TextJson has no `System.Text.Json` dependency; Newtonsoft depends on
-  `Newtonsoft.Json` >= 13.0.3; groups only for net8.0 and net10.0.
+  `Newtonsoft.Json` >= 13.0.4; groups only for net8.0 and net10.0.
 - [x] Package validation passes with only PKV006 suppressed.
 - [x] PR CI green on all three OS jobs.
 - [ ] Done when merged and nuget.org lists 2.0.0 for `Appy.Spatial.GeoJSON`,
