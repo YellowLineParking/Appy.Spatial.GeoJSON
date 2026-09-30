@@ -36,6 +36,8 @@ dotnet test src/Appy.Spatial.Geojson.sln --filter "FullyQualifiedName~Serialisat
   items carry no `Version`. Framework-specific versions use a `Condition` on `$(TargetFramework)`.
 - **Shared metadata**: package info, SourceLink and MinVer are in `src/Directory.Build.props`.
 - **Versioning**: MinVer derives the version from git tags (`1.4.0`). No version is stored in files.
+- **Package validation**: `dotnet pack` checks each package against the last release
+  (`PackageValidationBaselineVersion` in `src/Directory.Build.targets`). API breaks fail the build.
 - **Tests**: xUnit + FluentAssertions. Every geometry round-trips through both serializers, as the
   base type and the concrete type, bare and inside a `Feature`. Keep both converter packages in step.
 - **Target frameworks** are set per `.csproj`; the SDK is pinned in `global.json`.
