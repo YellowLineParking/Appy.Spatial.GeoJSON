@@ -18,7 +18,7 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
 | Version **2.0.0** | Dropping `netstandard2.0` ends .NET Framework and pre-net8 support: breaking under SemVer. Those users stay on 1.4.x | Minor bump (Appy.Configuration used 1.2.0 for the same drop): hides the break |
 | Remove the `System.Text.Json` package | In-box on net8+; the package only served `netstandard2.0`/`net6.0` | Keep it: NU1510 pruning warning, fails the warnings-as-errors build |
 | `Newtonsoft.Json` floor stays **13.0.3** | Raising it to 13.0.4 breaks users who pin 13.0.3 directly (NU1605). 13.0.3 has no advisory | 13.0.4 (latest): no functional gain |
-| Tests: `xunit.v3` 3.2.2, `xunit.runner.visualstudio` 3.1.5, FluentAssertions 7.2.2, `Microsoft.NET.Test.Sdk` 18.10.1, `GitHubActionsTestLogger` 3.0.5, `XunitXml.TestLogger` 8.0.0 | xUnit v2 is in maintenance. FluentAssertions 8 needs a commercial licence | xUnit 2.9.3 (as in Appy.Configuration); `xunit.v3` 4.x |
+| Tests: `xunit.v3` 3.2.2, `xunit.runner.visualstudio` 3.1.5, FluentAssertions 7.2.2, `Microsoft.NET.Test.Sdk` 18.10.1, `GitHubActionsTestLogger` 2.4.1 | xUnit v2 is in maintenance. FluentAssertions 8 needs a commercial licence. Logger 3.x and `XunitXml.TestLogger` 8.x need Microsoft.Testing.Platform 2 (CS1705 against xunit.v3 3.2.2's 1.9.1); the XML logger was unused | xUnit 2.9.3 (as in Appy.Configuration); `xunit.v3` 4.x |
 | Build tooling as Appy.Configuration: Cake 6.0.0, Cake.MinVer 4.0.0, Cake.Yaml 6.0.0, YamlDotNet 16.2.0, MinVer 2.3.0, traversal `src/build.csproj`, `.sln` kept | Same pipeline across repos; MinVer 2.3.0 keeps versioning unchanged | MinVer 8: new pre-release options, out of scope |
 | CI installs only the SDK in `global.json` | SDK 10 builds the `net8.0` target from reference packs; tests run on `net10.0`; the Cake, MinVer and gpr tools roll forward | Also install 8.0.x (as Appy.Configuration does): not needed |
 | Package validation against 1.4.0 | Catches accidental API breaks; only the dropped TFMs are suppressed (PKV006) | None; Appy.Configuration has no validation |
@@ -32,9 +32,9 @@ Move the three packages to `net10.0;net8.0` on the .NET 10 SDK, drop `net9.0`, `
   `Microsoft.NETCore.App.Ref`, `AnnotatedReferenceAssemblyVersion`, per-project `LangVersion`) and
   the `System.Text.Json` package. `PackageTags` become `NET10;NET8`.
   Test: the 6 `SerialisationTests` pass on `net10.0` (`dotnet test src/Appy.Spatial.Geojson.sln`).
-- [ ] 2. `chore(deps): move tests to xunit v3`. Update `src/Directory.Packages.props` to the test
+- [x] 2. `chore(deps): move tests to xunit v3`. Update `src/Directory.Packages.props` to the test
   stack above. Remove unused entries (`Moq`, `MartinCostello.Logging.XUnit`,
-  `TunnelVisionLabs.ReferenceAssemblyAnnotator`, `coverlet.collector`) and the
+  `TunnelVisionLabs.ReferenceAssemblyAnnotator`, `coverlet.collector`, `XunitXml.TestLogger`) and the
   `Version="$(...)"` attributes in the test csproj.
   Test: same 6 tests pass. The run reports a non-zero count.
 - [ ] 3. `chore(build): upgrade cake to 6.0.0 with traversal build`. Update `dotnet-tools.json`,
