@@ -34,12 +34,15 @@ dotnet test src/Appy.Spatial.GeoJSON.slnx --filter "FullyQualifiedName~Serialisa
 
 - **Central package management**: versions live in `src/Directory.Packages.props`; `PackageReference`
   items carry no `Version`. Framework-specific versions use a `Condition` on `$(TargetFramework)`.
-- **Shared metadata**: package info, SourceLink and MinVer are in `src/Directory.Build.props`.
+- **Shared metadata**: package info, Source Link settings (built into the SDK) and MinVer are in
+  `src/Directory.Build.props`.
 - **Versioning**: MinVer derives the version from git tags (`1.4.0`). No version is stored in files.
 - **Package validation**: `dotnet pack` checks each package against the last release
   (`PackageValidationBaselineVersion` in `src/Directory.Build.targets`). API breaks fail the build.
-- **Tests**: xUnit + FluentAssertions. Every geometry round-trips through both serializers, as the
-  base type and the concrete type, bare and inside a `Feature`. Keep both converter packages in step.
+- **Tests**: xUnit v3 + FluentAssertions, run on `net10.0` and `net8.0`. Every geometry round-trips
+  through both serializers, as the base type and the concrete type, bare and inside a `Feature`.
+  Keep both converter packages in step.
+- **Package source**: `nuget.config` restores from nuget.org only.
 - **Target frameworks** are set per `.csproj`; the SDK is pinned in `global.json`.
 - **Style**: `.editorconfig` (4 spaces, 2 for XML/JSON/YAML, CRLF). File-scoped namespaces.
 - **Public repo**: no secrets, internal hostnames or private feed URLs in code, docs or commits.
