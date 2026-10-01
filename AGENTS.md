@@ -36,7 +36,7 @@ dotnet test src/Appy.Spatial.GeoJSON.slnx --filter "FullyQualifiedName~Serialisa
   items carry no `Version`. Framework-specific versions use a `Condition` on `$(TargetFramework)`.
 - **Shared metadata**: package info, Source Link settings (built into the SDK) and MinVer are in
   `src/Directory.Build.props`.
-- **Versioning**: MinVer derives the version from git tags (`1.4.0`). No version is stored in files.
+- **Versioning**: MinVer derives the version from git tags (`2.0.0`). No version is stored in files.
 - **Package validation**: `dotnet pack` checks each package against the last release
   (`PackageValidationBaselineVersion` in `src/Directory.Build.targets`). API breaks fail the build.
 - **Tests**: xUnit v3 + FluentAssertions, run on `net10.0` and `net8.0`. Every geometry round-trips

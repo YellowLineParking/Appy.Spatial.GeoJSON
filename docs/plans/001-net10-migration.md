@@ -1,6 +1,6 @@
 # .NET 10 Migration
 
-- **Status:** In Progress
+- **Status:** Complete
 - **Branch:** `feat/net10`
 
 ## Summary
@@ -67,7 +67,7 @@ and bring the Cake build, GitHub Actions and test stack in line with
   `Newtonsoft.Json` >= 13.0.4; groups only for net8.0 and net10.0.
 - [x] Package validation passes with only PKV006 suppressed.
 - [x] PR CI green on all three OS jobs.
-- [ ] Done when merged and nuget.org lists 2.0.0 for `Appy.Spatial.GeoJSON`,
+- [x] Done when merged and nuget.org lists 2.0.0 for `Appy.Spatial.GeoJSON`,
   `Appy.Spatial.GeoJSON.Newtonsoft` and `Appy.Spatial.GeoJSON.TextJson`.
 
 ## Release
