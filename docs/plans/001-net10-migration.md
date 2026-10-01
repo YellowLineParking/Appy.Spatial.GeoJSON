@@ -30,10 +30,11 @@ and bring the Cake build, GitHub Actions and test stack in line with
 
 - [x] 1. `feat(net10): target net10.0 and net8.0`. `global.json` SDK `10.0.103`,
   `rollForward: latestFeature`. The three library csproj files go to `net10.0;net8.0`, tests
-  to `net10.0`. Remove the `netstandard2.0` shims (`Nullable` package, `PackageDownload`
+  to `net10.0` (later `net10.0;net8.0`, from review). Remove the `netstandard2.0` shims (`Nullable` package, `PackageDownload`
   `Microsoft.NETCore.App.Ref`, `AnnotatedReferenceAssemblyVersion`, per-project `LangVersion`) and
   the `System.Text.Json` package. `PackageTags` become `NET10;NET8`.
-  Test: the 6 `SerialisationTests` pass on `net10.0` (`dotnet test src/Appy.Spatial.GeoJSON.slnx`).
+  Test: the 6 `SerialisationTests` pass on `net10.0` and `net8.0`
+  (`dotnet test src/Appy.Spatial.GeoJSON.slnx`).
 - [x] 2. `chore(deps): move tests to xunit v3`. Update `src/Directory.Packages.props` to the test
   stack above. Remove unused entries (`Moq`, `MartinCostello.Logging.XUnit`,
   `TunnelVisionLabs.ReferenceAssemblyAnnotator`, `coverlet.collector`, `XunitXml.TestLogger`) and the
@@ -45,7 +46,7 @@ and bring the Cake build, GitHub Actions and test stack in line with
   `lib/net8.0` and `lib/net10.0` only.
 - [x] 4. `ci: build and publish with .NET 10 SDK`. In `ci.yaml` and `publish.yaml`, move to
   `actions/checkout@v6`, `actions/cache@v5` and `actions/setup-dotnet@v5`, SDK from `global.json`
-  only. Triggers stay as they are.
+  plus 8.0.x for the `net8.0` test run (from review). Triggers stay as they are.
   Test: PR checks green on Windows, macOS and Linux.
 - [x] 5. `build: validate packages against 1.4.0`. Add `EnablePackageValidation` and
   `PackageValidationBaselineVersion` 1.4.0 to packable projects. Pack fails first on PKV006 (the
