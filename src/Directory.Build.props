@@ -39,7 +39,6 @@
 
   <ItemGroup Label="Package References">
     <PackageReference Include="MinVer" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
