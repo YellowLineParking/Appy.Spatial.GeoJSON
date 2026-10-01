@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup Label="Package Validation" Condition="'$(IsPackable)' != 'false'">
     <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>1.4.0</PackageValidationBaselineVersion>
+    <PackageValidationBaselineVersion>2.0.0</PackageValidationBaselineVersion>
   </PropertyGroup>
 
   <!-- MinVer sets the version just before GenerateNuspec; run it before NuGet computes the package
