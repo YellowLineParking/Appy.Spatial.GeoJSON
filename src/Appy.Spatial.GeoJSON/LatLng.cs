@@ -14,7 +14,7 @@ public class LatLngComparer : IEqualityComparer<LatLng>
 {
     public bool Equals(LatLng x, LatLng y) =>
         x == null && y == null ||
-        x != null && y != null && x.Latitude.Equals(y.Latitude) && x.Longitude.Equals(y.Latitude);
+        x != null && y != null && x.Latitude.Equals(y.Latitude) && x.Longitude.Equals(y.Longitude);
 
     public int GetHashCode(LatLng obj) =>
         obj.Latitude.GetHashCode() +
